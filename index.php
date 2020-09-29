@@ -11,10 +11,21 @@ echo "<h2>Welcome to the pokedex</h2>";
 
 //placeholding pikachu rn until I find out how to get input.
 
-$PokemonData = file_get_contents('https://pokeapi.co/api/v2/pokemon/$input');
+$PokemonData = file_get_contents('https://pokeapi.co/api/v2/pokemon/133');
 //shows a lot of unfiltered data.
-$pokemonQuery=var_dump(json_decode($PokemonData));
-$input=$_GET["input"];
+$pokemonQuery=json_decode($PokemonData,true);
+//echo only accepts strings
+$idNum=$pokemonQuery['id'];
+$pokeName=$pokemonQuery['name'];
+
+echo $idNum;
+echo "<br>";
+echo "<br>";
+echo $pokeName;
+echo "<br>";
+
+
+
 
 
 ?>
@@ -29,10 +40,9 @@ $input=$_GET["input"];
     <title>Pokedex</title>
 </head>
 <body>
-<form method="post">
-    <input type="text" name="input" id="input" placeholder="insert pokemon name or id"><br>
 
-    <input type="submit">
+<img src= "<?php echo $pokemonQuery['sprites']['front_default']?>"
+
 </body>
 </html>
 
