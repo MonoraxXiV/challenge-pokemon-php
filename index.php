@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 echo "<h2>Welcome to the pokedex</h2>";
 
-//placeholding pikachu rn until I find out how to get input.
+//placeholding a pokemon for the moment to test
 
 $PokemonData = file_get_contents('https://pokeapi.co/api/v2/pokemon/133');
 //shows a lot of unfiltered data.
@@ -17,12 +17,21 @@ $pokemonQuery=json_decode($PokemonData,true);
 //echo only accepts strings
 $idNum=$pokemonQuery['id'];
 $pokeName=$pokemonQuery['name'];
+$movesList= $pokemonQuery['moves']['move'];
+/*
+$i = 0;
+for ($i = 0; $i < 4; $i++) {
+    echo $movesList[$i] ;
+
+}
+*/
 
 echo $idNum;
 echo "<br>";
 echo "<br>";
 echo $pokeName;
 echo "<br>";
+
 
 
 
