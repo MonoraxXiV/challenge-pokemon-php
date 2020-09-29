@@ -17,7 +17,8 @@ $pokemonQuery=json_decode($PokemonData,true);
 //echo only accepts strings
 $idNum=$pokemonQuery['id'];
 $pokeName=$pokemonQuery['name'];
-$movesList= $pokemonQuery['moves']['move'];
+
+//$movesList= $pokemonQuery['moves']['move'];
 /*
 $i = 0;
 for ($i = 0; $i < 4; $i++) {
@@ -51,7 +52,10 @@ echo "<br>";
 <body>
 
 <img src= "<?php echo $pokemonQuery['sprites']['front_default']?>"
-
+<form action="post-method.php" method="post">
+    <input type="text" name="input" placeholder="Enter pokemon name or id" />
+    <input type="button" name="submit" />
+</form>
 </body>
 </html>
 
