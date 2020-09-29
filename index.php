@@ -18,14 +18,15 @@ $pokemonQuery=json_decode($PokemonData,true);
 $idNum=$pokemonQuery['id'];
 $pokeName=$pokemonQuery['name'];
 
-//$movesList= $pokemonQuery['moves']['move'];
-/*
+$movesList= $pokemonQuery['moves'][0]['move']['name'];
+
 $i = 0;
 for ($i = 0; $i < 4; $i++) {
-    echo $movesList[$i] ;
+    echo $movesList[$i]."<br />" ;
+
 
 }
-*/
+
 
 echo $idNum;
 echo "<br>";
@@ -47,7 +48,7 @@ echo "<br>";
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pokedex</title>
+    <title>Pokédex</title>
 </head>
 <body>
 
