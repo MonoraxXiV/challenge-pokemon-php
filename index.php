@@ -10,31 +10,38 @@ error_reporting(E_ALL);
 echo "<h2>Welcome to the pokedex</h2>";
 
 //placeholding a pokemon for the moment to test
+$pokemon=$_POST['input'];
+if($pokemon===null){
+    $pokemon=1;
+}
 
-$PokemonData = file_get_contents('https://pokeapi.co/api/v2/pokemon/133');
-//shows a lot of unfiltered data.
+
+$PokemonData = file_get_contents('https://pokeapi.co/api/v2/pokemon/'.$pokemon);
+
 $pokemonQuery=json_decode($PokemonData,true);
+//shows a lot of unfiltered data.
+
 //echo only accepts strings
 $idNum=$pokemonQuery['id'];
 $pokeName=$pokemonQuery['name'];
 
-$movesList= $pokemonQuery['moves'][0]['move']['name'];
+$movesList= $pokemonQuery['moves'];
+
+
+
+
+echo $idNum.'  ';
+
+echo $pokeName;
+echo "<br>";
+echo "<br>";
 
 $i = 0;
 for ($i = 0; $i < 4; $i++) {
-    echo $movesList[$i]."<br />" ;
+    echo  $moves[] = $movesList[$i]['move']['name']."<br />";
 
 
 }
-
-
-echo $idNum;
-echo "<br>";
-echo "<br>";
-echo $pokeName;
-echo "<br>";
-
-
 
 
 
@@ -52,11 +59,12 @@ echo "<br>";
 </head>
 <body>
 
-<img src= "<?php echo $pokemonQuery['sprites']['front_default']?>"
-<form action="post-method.php" method="post">
+
+<form action="index.php" method="post">
     <input type="text" name="input" placeholder="Enter pokemon name or id" />
-    <input type="button" name="submit" />
+    <input type="submit" />
 </form>
+<img src= "<?php echo $pokemonQuery['sprites']['front_default']?>"
 </body>
 </html>
 
