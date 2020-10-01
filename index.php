@@ -34,18 +34,20 @@ $movesList = $pokemonQuery['moves'];
 $evoData = file_get_contents($pokemonQuery['species']['url'], true);
 $evoQuery = json_decode($evoData, true);
 
+if (isset ($evoQuery['evolves_from_species'])) {
 
-$previousForm = $evoQuery['evolves_from_species']['name'];
-$PreviousData = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $previousForm);
-$previousQuery = json_decode($PreviousData, true);
+
+    $previousForm = $evoQuery['evolves_from_species']['name'];
+    $PreviousData = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $previousForm);
+    $previousQuery = json_decode($PreviousData, true);
 
 //things to figure out:
 // finding where the types are stored
 //next evo path
-$pokemonType=$pokemonQuery['types'];
-$previousSprite=$previousQuery['sprites']['front_default'];
 
-
+    $previousSprite = $previousQuery['sprites']['front_default'];
+}
+$pokemonType = $pokemonQuery['types'];
 
 
 $i = 0;
@@ -79,28 +81,28 @@ echo "<br>";
     <input type="submit"/>
 </form>
 <section class="pokemonInfo text-center">
-<?php echo"<strong>$idNum</strong>" ?>
-<?php echo " "?>
+<?php echo"<strong>$idNum</strong>"." " ?>
 <?php echo "<strong>$pokeName</strong>"; ?>
 <?php echo "<br>"?>
 <?php echo "<br>"?>
 <img src="<?php echo $pokemonQuery['sprites']['front_default'] ?>"
 <?php echo "<br>"?>
 <?php echo "<br>"?>
+     <!--type gets added here -->
     <?php echo "type: " ?>
-    <?php if ( $pokemonType===0){
+    <?php if ( count($pokemonQuery['types'])===1){
         echo $pokemonType[0]['type']['name'];
     }
     else{
-        for ($i = 0; $i < 2; $i++) {
-            $dualType= $pokemonType[0]['type']['name'] . " ";
+        for ($i = 0; $i < count($pokemonQuery['types']); $i++) {
+            $dualType= $pokemonType[$i]['type']['name'] . " ";
             echo $dualType;
         }
     }
         ?>
     <?php echo "<br>"?>
 <?php   $i = 0;
-if ($pokemonQuery['moves']===1){
+if (count($pokemonQuery['moves'])===1){
     echo $movesList[0]['move']['name'];
 }else {
 for ($i = 0; $i < 4; $i++) {
@@ -121,8 +123,10 @@ for ($i = 0; $i < 4; $i++) {
 }
 ?>
 <?php echo "<br>"?>
-
-<img src="<?php echo $previousSprite ?>"
+    <?php if (isset ($previousSprite)) {
+        echo '<img src="' . $previousSprite . '">';
+    }?>
+<!--<img src="<?php echo $previousSprite ?>"> -->
 </section>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
