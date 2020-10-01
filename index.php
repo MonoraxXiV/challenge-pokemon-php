@@ -12,10 +12,11 @@ echo "<h2 class='text-center'>Welcome to the pokédex</h2>";
 //placeholding a pokemon for the moment to test
 
 
-$pokemon = $_POST['input'];
-
-if ($pokemon === null) {
-    $pokemon = 'umbreon';
+if (isset($_POST['input'])) {
+    $pokemon = strtolower($_POST['input']);
+}
+else{
+    $pokemon = 1;
 }
 //$pokemonLow = strtolower($pokemon);
 
