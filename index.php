@@ -7,7 +7,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-echo "<h2>Welcome to the pokedex</h2>";
+echo "<h2 class='text-center'>Welcome to the pokedex</h2>";
 
 //placeholding a pokemon for the moment to test
 
@@ -15,7 +15,7 @@ echo "<h2>Welcome to the pokedex</h2>";
 $pokemon = $_POST['input'];
 
 if ($pokemon === null) {
-    $pokemon = 1;
+    $pokemon = 'umbreon';
 }
 //$pokemonLow = strtolower($pokemon);
 
@@ -39,8 +39,11 @@ $previousForm = $evoQuery['evolves_from_species']['name'];
 $PreviousData = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $previousForm);
 $previousQuery = json_decode($PreviousData, true);
 
-
-
+//things to figure out:
+// finding where the types are stored
+//next evo path
+$pokemonType=$pokemonQuery['types'];
+$previousSprite=$previousQuery['sprites']['front_default'];
 
 
 
@@ -64,17 +67,19 @@ echo "<br>";
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Pokédex</title>
 </head>
 <body>
 
 
-<form action="index.php" method="post">
+<form action="index.php" method="post" class="text-center">
     <input type="text" name="input" placeholder="Enter pokemon name or id"/>
     <input type="submit"/>
 </form>
-
-<?php echo "<strong>$idNum</strong>" ?>
+<section class="pokemonInfo text-center">
+<?php echo"<strong>$idNum</strong>" ?>
 <?php echo " "?>
 <?php echo "<strong>$pokeName</strong>"; ?>
 <?php echo "<br>"?>
@@ -82,17 +87,33 @@ echo "<br>";
 <img src="<?php echo $pokemonQuery['sprites']['front_default'] ?>"
 <?php echo "<br>"?>
 <?php echo "<br>"?>
+    <?php echo "type: " ?>
+    <?php if ( $pokemonType===0){
+        echo $pokemonType[0]['type']['name'];
+    }
+    else{
+        for ($i = 0; $i < 2; $i++) {
+            $dualType= $pokemonType[0]['type']['name'] . " ";
+            echo $dualType;
+        }
+    }
+        ?>
+    <?php echo "<br>"?>
 <?php   $i = 0;
+if ($pokemonQuery['moves']===1){
+    echo $movesList[0]['move']['name'];
+}else {
 for ($i = 0; $i < 4; $i++) {
-    $fourMoves= $moves[] = $movesList[$i]['move']['name'] . "<br />";
- echo $fourMoves;
-
+    $fourMoves = $moves[] = $movesList[$i]['move']['name'] . "<br />";
+    echo $fourMoves;
+}
 }?>
 <?php echo "<br>"?>
 <?php if ($evoQuery['evolves_from_species'] === null) {
-    echo " ";
+    $previousSprite="";
 } else {
     echo "previous evolution"."<br/>";
+    echo "<strong>$previousQuery[id]</strong>"." ";
     echo "<strong>$previousForm</strong>";
 
 
@@ -100,9 +121,12 @@ for ($i = 0; $i < 4; $i++) {
 }
 ?>
 <?php echo "<br>"?>
-<img src="<?php echo $previousQuery['sprites']['front_default'] ?>"
 
-
+<img src="<?php echo $previousSprite ?>"
+</section>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
 </html>
 
