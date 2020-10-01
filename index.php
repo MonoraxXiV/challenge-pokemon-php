@@ -34,6 +34,14 @@ $movesList = $pokemonQuery['moves'];
 
 $evoData = file_get_contents($pokemonQuery['species']['url'], true);
 $evoQuery = json_decode($evoData, true);
+/*
+$evoChain = file_get_contents($evoData['evolution_chain']['url'], true);
+$evolutionInfo= json_decode($evoChain, true);
+$evoName= $evoChain['evolves_to'][0]['evolves_to'][0]['name'];
+*/
+if (isset ($evoName)){
+    echo $evoName;
+}
 
 if (isset ($evoQuery['evolves_from_species'])) {
 
