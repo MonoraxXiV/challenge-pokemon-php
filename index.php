@@ -30,35 +30,29 @@ $pokeName = $pokemonQuery['name'];
 
 $movesList = $pokemonQuery['moves'];
 
-/*
-$evoData = file_get_contents($pokemonQuery['evolution_chain']['url'], true);
+
+$evoData = file_get_contents($pokemonQuery['species']['url'], true);
 $evoQuery = json_decode($evoData, true);
+
 
 $previousForm = $evoQuery['evolves_from_species']['name'];
 $PreviousData = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $previousForm);
 $previousQuery = json_decode($PreviousData, true);
-*/
-/*
-if ($evoQuery['evolves_from_species'] === null) {
-    echo 'no previous evolution';
-} else {
 
 
-}
-*/
-echo "<strong>$idNum</strong>";
-echo " ";
-echo "<strong>$pokeName</strong>";
-echo "<br>";
-echo "<br>";
+
+
+
+
 
 $i = 0;
 for ($i = 0; $i < 4; $i++) {
-    echo $moves[] = $movesList[$i]['move']['name'] . "<br />";
+    $fourMoves= $moves[] = $movesList[$i]['move']['name'] . "<br />";
 
 
 }
 echo "<br>";
+
 
 
 ?>
@@ -79,7 +73,35 @@ echo "<br>";
     <input type="text" name="input" placeholder="Enter pokemon name or id"/>
     <input type="submit"/>
 </form>
+
+<?php echo "<strong>$idNum</strong>" ?>
+<?php echo " "?>
+<?php echo "<strong>$pokeName</strong>"; ?>
+<?php echo "<br>"?>
+<?php echo "<br>"?>
 <img src="<?php echo $pokemonQuery['sprites']['front_default'] ?>"
+<?php echo "<br>"?>
+<?php echo "<br>"?>
+<?php   $i = 0;
+for ($i = 0; $i < 4; $i++) {
+    $fourMoves= $moves[] = $movesList[$i]['move']['name'] . "<br />";
+ echo $fourMoves;
+
+}?>
+<?php echo "<br>"?>
+<?php if ($evoQuery['evolves_from_species'] === null) {
+    echo " ";
+} else {
+    echo "previous evolution"."<br/>";
+    echo "<strong>$previousForm</strong>";
+
+
+
+}
+?>
+<?php echo "<br>"?>
+<img src="<?php echo $previousQuery['sprites']['front_default'] ?>"
+
 
 </body>
 </html>
