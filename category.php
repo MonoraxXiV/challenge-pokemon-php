@@ -19,6 +19,9 @@ for ($count=1; $count>=20; $count++) {
 $PokemonFetch = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $count);
 $pokemonJson = json_decode($PokemonFetch, true);
 $idNum = $pokemonJson['id'];
+$pokemonType = $pokemonJson['types'];
+
+
 ?>
 
 <!doctype html>
@@ -54,13 +57,22 @@ $idNum = $pokemonJson['id'];
 </nav>
 
 <!--start of attempts to show pokemon in cards-->
+
 <div class=" row d-flex  justify-content-center m-auto mt-25 ">
     <div class="card column col-2 mr-2">
-        <img class="card-img-top" src="<?php echo $pokemonJson['sprites']['front_default'] ?>">
+        <img class="card-img-top" id="spriteCard" src="<?php echo $pokemonJson['sprites']['front_default'] ?>">
         <div class="card-body">
-
-            <p class="card-text">
-                <?php $idNum ?>
+            <h4 class="card-title text-center "><?php echo $pokemonJson['id']." ".$pokemonJson['name']?></h4>
+            <p class="card-text text-center">
+                <?php if (count($pokemonJson['types']) === 1) {
+                    echo $pokemonType[0]['type']['name'];
+                } else {
+                    for ($i = 0; $i < count($pokemonJson['types']); $i++) {
+                        $dualType = $pokemonType[$i]['type']['name'] . " ";
+                        echo $dualType;
+                    }
+                }
+                ?>
             </p>
         </div>
     </div>
@@ -104,6 +116,28 @@ $idNum = $pokemonJson['id'];
             </p>
         </div>
     </div>
+</div>
+
+<div class="d-flex justify-content-center mt-5">
+<nav aria-label="Page navigation example ">
+    <ul class="pagination ">
+        <li class="page-item">
+            <a class="page-link" href="#!" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                <span class="sr-only">Previous</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#!">1</a></li>
+        <li class="page-item"><a class="page-link" href="#!">2</a></li>
+        <li class="page-item"><a class="page-link" href="#!">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#!" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                <span class="sr-only">Next</span>
+            </a>
+        </li>
+    </ul>
+</nav>
 </div>
 </body>
 </html>
