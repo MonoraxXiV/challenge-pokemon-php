@@ -6,11 +6,7 @@ ini_set('display_errors', '1');
 
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
-
-echo "<h2 class='text-center'>Welcome to the pokédex</h2>";
-
 //placeholding a pokemon for the moment to test
-
 
 if (isset($_POST['input'])) {
     $pokemon = strtolower($_POST['input']);
@@ -77,7 +73,7 @@ echo "<br>";
     <title>Pokédex</title>
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark  mb-4" id="navName">
     <a class="navbar-brand" href="#">pokédex</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -92,7 +88,6 @@ echo "<br>";
                 <a class="nav-link" href="category.php">List</a>
             </li>
         </ul>
-
     </div>
 </nav>
 
