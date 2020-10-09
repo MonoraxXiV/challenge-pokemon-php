@@ -10,9 +10,15 @@ error_reporting(E_ALL);
 //fetch the data, trying to loop 20 times per page.
 //add cards each card will have the pokemon, number, type and sprite.
 //once page changes the count will change, hoping to put a switch case there.
-$count=1;
-$PokemonFetch = file_get_contents('https://pokeapi.co/api/v2/pokemon/' .$count);
 
+for ($count=1; $count>=20; $count++) {
+
+   $count++;
+
+}
+$PokemonFetch = file_get_contents('https://pokeapi.co/api/v2/pokemon/' . $count);
+$pokemonJson = json_decode($PokemonFetch, true);
+$idNum = $pokemonJson['id'];
 ?>
 
 <!doctype html>
@@ -22,12 +28,14 @@ $PokemonFetch = file_get_contents('https://pokeapi.co/api/v2/pokemon/' .$count);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>List view</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+<!--navbar-->
+
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark mb-4 ">
     <a class="navbar-brand" href="#">pokédex</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -42,8 +50,60 @@ $PokemonFetch = file_get_contents('https://pokeapi.co/api/v2/pokemon/' .$count);
                 <a class="nav-link" href="#">List<span class="sr-only">(current)</span></a>
             </li>
         </ul>
-
     </div>
 </nav>
+
+<!--start of attempts to show pokemon in cards-->
+<div class=" row d-flex  justify-content-center m-auto mt-25 ">
+    <div class="card column col-2 mr-2">
+        <img class="card-img-top" src="<?php echo $pokemonJson['sprites']['front_default'] ?>">
+        <div class="card-body">
+
+            <p class="card-text">
+                <?php $idNum ?>
+            </p>
+        </div>
+    </div>
+    <div class="card column col-2 mr-2">
+        <img class="card-img-top" src="<?php echo $pokemonJson['sprites']['front_default'] ?>" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title"><?php $pokemonJson['id']?></h4>
+            <p class="card-text">
+                Some quick example text to build on the card title
+                and make up the bulk of the card's content.
+            </p>
+        </div>
+    </div>
+    <div class="card column col-2 mr-2">
+        <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title"><?php $pokemonJson['id']?></h4>
+            <p class="card-text">
+                Some quick example text to build on the card title
+                and make up the bulk of the card's content.
+            </p>
+        </div>
+    </div>
+    <div class="card column col-2 mr-2">
+        <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title"><?php $pokemonJson['id']?></h4>
+            <p class="card-text">
+                Some quick example text to build on the card title
+                and make up the bulk of the card's content.
+            </p>
+        </div>
+    </div>
+    <div class="card column col-2 mr-2">
+        <img class="card-img-top" src="/images/pathToYourImage.png" alt="Card image cap">
+        <div class="card-body">
+            <h4 class="card-title"><?php $pokemonJson['id']?></h4>
+            <p class="card-text">
+                Some quick example text to build on the card title
+                and make up the bulk of the card's content.
+            </p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
